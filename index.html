@@ -11,15 +11,24 @@
 
 <body>
     <div id="nav-container">
-        <span id="nav-text">Menu</p>
-        <div></div>
+        <span class="nav-logo">TG</span>
+        <span id="nav-text">Menu</span>
+        <div class="nav-burger">
+            <div class="nav-burger-bars"></div>
+            <div class="nav-burger-bars"></div>
+            <div class="nav-burger-bars"></div>
+            <div class="nav-burger-bars"></div>
+        </div>
     </div>
     <main id="camera">
         <video id="camera--view" autoplay playsinline></video>
         <div id="camera--snapshot"></div>
         <!-- <canvas id="camera--sensor"></canvas> -->
         <img src="//:0" alt="" id="camera--output" class="hidden">
-        <button id="camera--trigger"></button>
+        <button id="camera--trigger">
+            <img src="./assets/icons/svg/camera.svg" width="200" height="180" alt="">
+            <p>Take a Picture</p>
+        </button>
     </main>
     <script src="app.js"></script>
 </body>

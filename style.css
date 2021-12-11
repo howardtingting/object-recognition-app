@@ -5,16 +5,25 @@ html, body {
     width:100%;
 }
 
-#camera, #camera--view, #camera--sensor, #camera--output {
+.hidden {
+    display: none;
+}
+
+#camera, #camera--view, #camera--snapshot, #camera--output, #camera--sensor {
     position: fixed;
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-#camera--view, #camera--sensor, #camera--output{
+#camera--view, #camera--snapshot, #camera--output {
     transform: scaleX(-1);
     filter: FlipH;
+}
+
+#camera--snapshot {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
 
 #camera--trigger {

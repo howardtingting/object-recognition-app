@@ -123,6 +123,28 @@ html, body {
 .nav-burger-bars:nth-child(4) {
     top:25px;
 }
+
+#nav-open {
+    position: absolute;
+    width:100vw;
+    height:100vh;
+    background-color: rgba(79,79,79,0.7);
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+/* APP MENU */
+#app-menu {
+    position: absolute;
+    width:300px;
+    height:100vh;
+    background-color: rgba(79,79,79,0.7);
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
 /* CAMERA SCHEMA */
 #camera, #camera--view, #camera--snapshot, #camera--output, #camera--sensor {
     position: fixed;
@@ -146,9 +168,14 @@ html, body {
     background-color: rgba(79,79,79,0.7);
     border: 1px solid white;
     border-radius: 5%;
-    bottom:20px;
+    top:calc(50% - 118px);
     position:fixed;
-    left:calc(50% - 150px);
+    right:22px;
+    z-index:4;
+}
+
+#camera--output {
+    z-index:4;
 }
 
 #camera--trigger p {

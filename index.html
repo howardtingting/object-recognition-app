@@ -20,16 +20,22 @@
             <div class="nav-burger-bars"></div>
         </div>
     </div>
+    <div id="nav-open" class="hidden">
+
+    </div>
+    <div id="app-menu">
+
+    </div>
     <main id="camera">
         <video id="camera--view" autoplay playsinline></video>
         <div id="camera--snapshot"></div>
         <!-- <canvas id="camera--sensor"></canvas> -->
-        <img src="//:0" alt="" id="camera--output" class="hidden">
-        <button id="camera--trigger">
-            <img src="./assets/icons/svg/camera.svg" width="200" height="180" alt="">
-            <p>Take a Picture</p>
-        </button>
     </main>
+    <img src="//:0" alt="" id="camera--output" class="hidden">
+    <button id="camera--trigger" class="app-menu-button">
+        <img src="./assets/icons/svg/camera.svg" width="150" height="135" alt="">
+        <p>Take a Picture</p>
+    </button>
     <script src="app.js"></script>
 </body>
 

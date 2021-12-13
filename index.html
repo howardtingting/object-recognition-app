@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="nav-container">
+    <div id="nav-container" class="no-select">
         <span class="nav-logo">TG</span>
         <span id="nav-text">Menu</span>
         <div class="nav-burger">
@@ -20,11 +20,24 @@
             <div class="nav-burger-bars"></div>
         </div>
     </div>
-    <div id="nav-open" class="hidden">
-
+    <div id="nav-open" class="no-select">
+        <ul id="nav-items">
+            <li id="nav-home">Home</li>
+            <li id="nav-scanner">Item Scanner</li>
+            <li id="nav-issue">Weapons Issue</li>
+            <li id="nav-counter">Counter</li>
+        </ul>
     </div>
-    <div id="app-menu">
+    <div id="app-container">
+        <div class="scanner-app">
+            <button id="camera--trigger" class="app-menu-button">
+                <img src="./assets/icons/svg/camera.svg" width="150" height="135" alt="">
+                <p>Take a Picture</p>
+            </button>
+        </div>
+        <div id="app-menu">
 
+        </div>
     </div>
     <main id="camera">
         <video id="camera--view" autoplay playsinline></video>
@@ -32,10 +45,6 @@
         <!-- <canvas id="camera--sensor"></canvas> -->
     </main>
     <img src="//:0" alt="" id="camera--output" class="hidden">
-    <button id="camera--trigger" class="app-menu-button">
-        <img src="./assets/icons/svg/camera.svg" width="150" height="135" alt="">
-        <p>Take a Picture</p>
-    </button>
     <script src="app.js"></script>
 </body>
 

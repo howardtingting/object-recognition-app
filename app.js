@@ -1,4 +1,73 @@
-var constraints = {
+const appContainer = document.querySelector("#app-container");
+
+const toggleAppContainer = (show=true) => {
+    if (!show) {
+        appContainer.style.right = "-100vw";
+    } else {
+        appContainer.style.right = "0";
+    }
+}
+
+// NAVIGATION SCHEMA
+const navContainer = document.querySelector("#nav-container"),
+      navOpen = document.querySelector("#nav-open");
+const toggleNavOpen = (show=true) => {
+    if (!show) {
+        navOpen.style.top = "-100vh";
+    } else {
+        navOpen.style.top = "0";
+    }
+}
+let showNav = false;
+const openNav = () => {
+    console.log("opening");
+    showNav = true;
+    toggleAppContainer(!showNav);
+    toggleNavOpen(showNav);
+}
+const closeNav = () => {
+    console.log("closing");
+    showNav = false;
+    toggleAppContainer(!showNav);
+    toggleNavOpen(showNav);
+}
+navContainer.addEventListener("click", function() {
+    if (showNav) {
+        closeNav();
+    } else {
+        openNav();
+    }
+});
+
+const navItems = ["home", "scanner", "issue", "counter"];
+navItems.forEach((navItem) => {
+    navItemHtmlObject = document.querySelector(`#nav-${navItem}`);
+    navItemHtmlObject.addEventListener("click", function() {
+        switch (navItem) {
+            case "home":
+                window.location.href='/#';
+                console.log(`clicked ${navItem}`);
+                break;
+            case "scanner":
+                // clear everything in the display area, display scanner app;
+                console.log(`clicked ${navItem}`);
+                break;
+            case "issue":
+                console.log(`clicked ${navItem}`);
+                break;
+            case "counter":
+                console.log(`clicked ${navItem}`);
+                break;
+            default:
+                console.log("error");
+                break;
+        }
+    })
+});
+
+// VIDEO SCHEMA
+
+let constraints = {
     video: {
         facingMode: "user"
     },
@@ -46,4 +115,10 @@ cameraTrigger.onclick = function() {
     cameraOutput.classList.add("taken");
 };
 
-window.addEventListener("load", cameraStart, false);
+// INITIALIZING APP
+const init = function() {
+    toggleAppContainer(false);
+    cameraStart();
+}
+
+window.addEventListener("load", init, false);

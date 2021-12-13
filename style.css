@@ -7,11 +7,22 @@ html, body {
     padding: 0;
     height:100%;
     width:100%;
+    overflow: hidden;
 }
 
 /* GENERICS */
 .hidden {
     display: none;
+}
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
 }
 
 /* NAVIGATION SCHEMA */
@@ -22,7 +33,7 @@ html, body {
     background-color: rgba(79,79,79,0.7);
     top:0;
     left:0;
-    z-index:3;
+    z-index:9000;
     cursor: pointer;
 }
 
@@ -126,15 +137,44 @@ html, body {
 
 #nav-open {
     position: absolute;
-    width:100vw;
+    width:calc(100vw - 100px);
     height:100vh;
     background-color: rgba(79,79,79,0.7);
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 8999;
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+    -webkit-transition: top .0.5s ease;
+    -moz-transition: top .0.5s ease;
+    transition: top .0.5s ease;
 }
 
-/* APP MENU */
+#nav-items {
+    list-style: none;
+    height: clamp(320px, 75vh, 100vh);
+    margin-left: 70px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+}
+
+#nav-items li {
+    font-size: 5rem;
+    color: white;
+    cursor:pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 0.035em;
+}
+
+/* APP CONTAINER */
+
+#app-container {
+    position:absolute;
+}
+
 #app-menu {
     position: absolute;
     width:300px;
@@ -164,12 +204,12 @@ html, body {
 }
 
 #camera--trigger {
+    position:relative;
     padding: 20px 50px 0px 50px;
     background-color: rgba(79,79,79,0.7);
     border: 1px solid white;
     border-radius: 5%;
-    top:calc(50% - 118px);
-    position:fixed;
+    top:calc(50vh - 118px);
     right:22px;
     z-index:4;
 }

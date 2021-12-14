@@ -44,12 +44,21 @@ const displayApp = function(appToRun='home') {
         switch (appToRun) {
             case 'scanner':
                 //display scanner menu and components
+                document.querySelector('#scanner-app').style.display = 'block';
+                document.querySelector('#issue-app').style.display = 'none';
+                document.querySelector('#counter-app').style.display = 'none';
                 break;
             case 'issue':
                 //display issue menu and components
+                document.querySelector('#scanner-app').style.display = 'none';
+                document.querySelector('#issue-app').style.display = 'block';
+                document.querySelector('#counter-app').style.display = 'none';
                 break;
             case 'counter':
                 //display counter menu and components
+                document.querySelector('#scanner-app').style.display = 'none';
+                document.querySelector('#issue-app').style.display = 'none';
+                document.querySelector('#counter-app').style.display = 'block';
                 break;
             default:
                 console.error("error in display app function; bad argument");

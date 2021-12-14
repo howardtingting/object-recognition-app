@@ -174,16 +174,31 @@ html, body {
 #app-container {
     position:absolute;
     right: 0;
+    width: 100vw;
+    height:100vh;
+    z-index: 3;
 }
 
-#app-menu {
+/* SCANNER APP */
+
+#scanner-app-menu {
     position: absolute;
     width:300px;
     height:100vh;
     background-color: rgba(79,79,79,0.7);
     top: 0;
     right: 0;
-    z-index: 3;
+}
+
+/* ISSUE APP */
+#issue-app, #counter-app {
+    position:absolute;
+    width:calc(100vw - 70px);
+    height:100vh;
+    top:0;
+    left:70px;
+    background-color: black;
+    color: white;
 }
 
 /* CAMERA SCHEMA */
@@ -211,7 +226,7 @@ html, body {
     border: 1px solid white;
     border-radius: 5%;
     top:calc(50vh - 118px);
-    right:22px;
+    left:22px;
     z-index:4;
 }
 

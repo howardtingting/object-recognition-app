@@ -140,7 +140,7 @@ html, body {
     width:calc(100vw - 100px);
     height:100vh;
     background-color: rgba(79,79,79,0.7);
-    top: 0;
+    top: -100vh;
     left: 0;
     z-index: 8999;
     display: flex;
@@ -173,6 +173,7 @@ html, body {
 
 #app-container {
     position:absolute;
+    right: 0;
 }
 
 #app-menu {

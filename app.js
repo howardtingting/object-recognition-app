@@ -1,16 +1,10 @@
-const appContainer = document.querySelector("#app-container");
-
-const toggleAppContainer = (show=true) => {
-    if (!show) {
-        appContainer.style.right = "-100vw";
-    } else {
-        appContainer.style.right = "0";
-    }
-}
+// nav & app HTML elements
+const navContainer = document.querySelector("#nav-container"),
+      navOpen = document.querySelector("#nav-open"),
+      appContainer = document.querySelector("#app-container");
 
 // NAVIGATION SCHEMA
-const navContainer = document.querySelector("#nav-container"),
-      navOpen = document.querySelector("#nav-open");
+
 const toggleNavOpen = (show=true) => {
     if (!show) {
         navOpen.style.top = "-100vh";
@@ -18,51 +12,67 @@ const toggleNavOpen = (show=true) => {
         navOpen.style.top = "0";
     }
 }
-let showNav = false;
-const openNav = () => {
-    console.log("opening");
-    showNav = true;
-    toggleAppContainer(!showNav);
-    toggleNavOpen(showNav);
+const toggleAppContainer = (showApp=true) => {
+    if (!showApp) {
+        appContainer.style.right = "-100vw";
+    } else {
+        appContainer.style.right = "0";
+    }
 }
-const closeNav = () => {
-    console.log("closing");
-    showNav = false;
-    toggleAppContainer(!showNav);
+
+let showNav = false,
+    showApp = true;
+const toggleNav = () => {
+    showNav = !showNav;
+    showApp = !showApp;
     toggleNavOpen(showNav);
+    toggleAppContainer(showApp);
+    displayApp(currentRunningApp);
 }
+
+// APPS SCHEMA
+var currentRunningApp = 'home';
+const appsAvailable = ['home', 'scanner', 'issue', 'counter'];
+
+const displayApp = function(appToRun='home') {
+    //guarantee hide navigation and show app when displaying app
+    //show app 
+    if (appToRun === 'home') {
+        appContainer.style.display = "none";
+    } else {
+        appContainer.style.display = "block";
+        switch (appToRun) {
+            case 'scanner':
+                //display scanner menu and components
+                break;
+            case 'issue':
+                //display issue menu and components
+                break;
+            case 'counter':
+                //display counter menu and components
+                break;
+            default:
+                console.error("error in display app function; bad argument");
+                break;
+        }
+    }
+    currentRunningApp = appToRun;
+}
+
 navContainer.addEventListener("click", function() {
     if (showNav) {
-        closeNav();
+        toggleNav();
     } else {
-        openNav();
+        toggleNav();
     }
 });
 
-const navItems = ["home", "scanner", "issue", "counter"];
-navItems.forEach((navItem) => {
+appsAvailable.forEach((navItem) => {
     navItemHtmlObject = document.querySelector(`#nav-${navItem}`);
-    navItemHtmlObject.addEventListener("click", function() {
-        switch (navItem) {
-            case "home":
-                window.location.href='/#';
-                console.log(`clicked ${navItem}`);
-                break;
-            case "scanner":
-                // clear everything in the display area, display scanner app;
-                console.log(`clicked ${navItem}`);
-                break;
-            case "issue":
-                console.log(`clicked ${navItem}`);
-                break;
-            case "counter":
-                console.log(`clicked ${navItem}`);
-                break;
-            default:
-                console.log("error");
-                break;
-        }
-    })
+    navItemHtmlObject.addEventListener("click", function(e) {
+        toggleNav();
+        displayApp(navItem);
+    }, false);
 });
 
 // VIDEO SCHEMA

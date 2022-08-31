@@ -36,7 +36,7 @@ const appsAvailable = ['home', 'scanner', 'issue', 'counter'];
 
 const displayApp = function(appToRun='home') {
     //guarantee hide navigation and show app when displaying app
-    //show app 
+    //show app
     if (appToRun === 'home') {
         appContainer.style.display = "none";
     } else {

@@ -134,6 +134,39 @@ cameraTrigger.onclick = function() {
     cameraOutput.classList.add("taken");
 };
 
+// COUNTER APP
+// icon interactivity schema
+let recording = false;
+const videoRecordButton = document.querySelector("#video--record--trigger");
+const innerIcon0 = document.querySelector('#inner-record-icon-0');
+const outerRecord0 = document.querySelector('#outer-record-0');
+videoRecordButton.addEventListener("mouseover", () => {
+    outerRecord0.classList.add('outer-record-circle-onhover');
+    outerRecord0.classList.remove('outer-record-circle');
+    if (recording) return;
+    innerIcon0.classList.add('inner-record-icon-circle-onhover');
+    innerIcon0.classList.remove('inner-record-icon-circle');
+}, false);
+videoRecordButton.addEventListener("mouseout", () => {
+    outerRecord0.classList.add('outer-record-circle');
+    outerRecord0.classList.remove('outer-record-circle-onhover');
+    if (recording) return;
+    innerIcon0.classList.add('inner-record-icon-circle');
+    innerIcon0.classList.remove('inner-record-icon-circle-onhover');
+}, false);
+videoRecordButton.addEventListener("click", () => {
+    recording = !recording;
+    if (recording) {
+        innerIcon0.classList.add('inner-record-icon-square');
+        innerIcon0.classList.remove('inner-record-icon-circle');
+        outerRecord0.style.backgroundColor = 'red';
+    } else {
+        innerIcon0.classList.add('inner-record-icon-circle');
+        innerIcon0.classList.remove('inner-record-icon-square');
+        outerRecord0.style.backgroundColor = 'rgb(0,0,0,0)';
+    }
+});
+
 // INITIALIZING APP
 const init = function() {
     toggleAppContainer(false);

@@ -140,6 +140,7 @@ let recording = false;
 const videoRecordButton = document.querySelector("#video--record--trigger");
 const innerIcon0 = document.querySelector('#inner-record-icon-0');
 const outerRecord0 = document.querySelector('#outer-record-0');
+let currentIcon
 videoRecordButton.addEventListener("mouseover", () => {
     outerRecord0.classList.add('outer-record-circle-onhover');
     outerRecord0.classList.remove('outer-record-circle');

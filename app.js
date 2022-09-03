@@ -129,8 +129,13 @@ cameraTrigger.onclick = function() {
     sensorCanvas.width = cameraView.videoWidth;
     sensorCanvas.height = cameraView.videoHeight;
     sensorCanvas.getContext("2d").drawImage(cameraView, 0, 0);
-    // 3. Place camera output as a small box on the upper right corner
-    cameraOutput.src = sensorCanvas.toDataURL("image/webp");
+    // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
+    const imageVariable = sensorCanvas.toDataURL("image/webp");
+    // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
+    // const yolov5Frame = fetch(yolov5APIUrl, {data: imageVariable});
+    const yolov5Frame = imageVariable;
+    // 4. Place camera output as a small box on the upper right corner
+    cameraOutput.src = yolov5Frame;
     cameraOutput.classList.add("taken");
 };
 

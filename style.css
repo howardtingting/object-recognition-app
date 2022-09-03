@@ -10,6 +10,14 @@ html, body {
     overflow: hidden;
 }
 
+th, td {
+    border: 1px solid white;
+}
+
+table {
+    color: white;
+}
+
 /* ICONS */
 
 /* RECORD ICON */

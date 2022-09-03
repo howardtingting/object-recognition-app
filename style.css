@@ -325,6 +325,8 @@ html, body {
 
 #video--record--trigger {
     width: 300px;
+    position: absolute;
+    bottom: 90px;
 }
 
 #video--record--trigger:active {

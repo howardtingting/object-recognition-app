@@ -111,7 +111,7 @@ table {
     position:fixed;
     height:100%;
     width:70px;
-    background-color: rgba(79,79,79,0.7);
+    background-color: rgba(0,0,0);
     top:0;
     left:0;
     z-index:9000;
@@ -220,7 +220,7 @@ table {
     position: absolute;
     width:calc(100vw - 100px);
     height:100vh;
-    background-color: rgba(79,79,79,0.7);
+    background-color: rgba(0,0,0,0.9);
     top: -100vh;
     left: 0;
     z-index: 8999;

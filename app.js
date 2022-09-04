@@ -68,13 +68,7 @@ const displayApp = function(appToRun='home') {
     currentRunningApp = appToRun;
 }
 
-navContainer.addEventListener("click", function() {
-    if (showNav) {
-        toggleNav();
-    } else {
-        toggleNav();
-    }
-});
+navContainer.addEventListener("click", toggleNav);
 
 appsAvailable.forEach((navItem) => {
     navItemHtmlObject = document.querySelector(`#nav-${navItem}`);
@@ -96,7 +90,7 @@ let constraints = {
 const cameraView = document.querySelector("#camera--view"),
       cameraOutput = document.querySelector("#camera--output"),
       cameraSnapshot = document.querySelector("#camera--snapshot"),
-      cameraTrigger = document.querySelector("#camera--trigger");
+      cameraTrigger = document.getElementById("camera--trigger");
 
 function cameraStart() {
     navigator.mediaDevices
@@ -125,7 +119,7 @@ const getItemName = (yolov5FetchedData) => {
     return yolov5FetchedData.getItemName();
 }
 
-cameraTrigger.onclick = function() {
+cameraTrigger.addEventListener("click", function() {
     cameraOutput.classList.remove("hidden");
     cameraOutput.classList.remove("taken");
     cameraSnapshot.innerHTML="";
@@ -142,6 +136,7 @@ cameraTrigger.onclick = function() {
     sensorCanvas.getContext("2d").drawImage(cameraView, 0, 0);
     // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
     const imageVariable = sensorCanvas.toDataURL("image/webp");
+    console.log(imageVariable);
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
     // const yolov5FetchedData = fetch(yolov5APIUrl, {data: imageVariable});
     // const yolov5Frame = yolov5FetchedData.getFrame();
@@ -153,7 +148,19 @@ cameraTrigger.onclick = function() {
     // it to the user; follow figma design.
     // const itemFound = getItemName(yolov5FetchedData);
     // display itemFound
-};
+});
+
+document.onkeyup = function(event) {
+    if (event.key === "Enter") {
+        if (currentRunningApp === 'scanner') {
+            cameraTrigger.click();
+        }
+    }
+    if (event.key === " ") {
+        //space key is menu
+        toggleNav();
+    }
+}
 
 // COUNTER APP
 // icon interactivity schema

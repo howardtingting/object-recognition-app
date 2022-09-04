@@ -114,6 +114,17 @@ cameraOutput.ontransitionstart = () => {
     cameraSnapshot.innerHTML="";
 };
 
+const getImageCounts = (yolov5FetchedData) => {
+    // pretend this returns dict s.t. {key = item_name, value=count}
+    return yolov5FetchedData.getImageCounts(); 
+}
+
+const getItemName = (yolov5FetchedData) => {
+    // returns the name of the first item on list recognized 
+    // returns string
+    return yolov5FetchedData.getItemName();
+}
+
 cameraTrigger.onclick = function() {
     cameraOutput.classList.remove("hidden");
     cameraOutput.classList.remove("taken");
@@ -132,11 +143,16 @@ cameraTrigger.onclick = function() {
     // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
     const imageVariable = sensorCanvas.toDataURL("image/webp");
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    // const yolov5Frame = fetch(yolov5APIUrl, {data: imageVariable});
+    // const yolov5FetchedData = fetch(yolov5APIUrl, {data: imageVariable});
+    // const yolov5Frame = yolov5FetchedData.getFrame();
     const yolov5Frame = imageVariable;
     // 4. Place camera output as a small box on the upper right corner
     cameraOutput.src = yolov5Frame;
     cameraOutput.classList.add("taken");
+    // 5. get image the name of item recognized and display
+    // it to the user; follow figma design.
+    // const itemFound = getItemName(yolov5FetchedData);
+    // display itemFound
 };
 
 // COUNTER APP

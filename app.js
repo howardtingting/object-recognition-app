@@ -119,11 +119,25 @@ const getItemName = (yolov5FetchedData) => {
     return yolov5FetchedData.getItemName();
 }
 
+async function postData(url, data) {
+    // Default options are marked with *
+    // console.log(JSON.stringify(data))
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data), // body data type must match "Content-Type" header
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
 cameraTrigger.addEventListener("click", function() {
     cameraOutput.classList.remove("hidden");
     cameraOutput.classList.remove("taken");
     cameraSnapshot.innerHTML="";
     const sensorCanvas = document.createElement("canvas");
+    const yolov5APIUrl = "http://127.0.0.1:5000/postfile"
     sensorCanvas.setAttribute("id", "camera--sensor");
     
     cameraSnapshot.appendChild(sensorCanvas);
@@ -136,9 +150,12 @@ cameraTrigger.addEventListener("click", function() {
     sensorCanvas.getContext("2d").drawImage(cameraView, 0, 0);
     // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
     const imageVariable = sensorCanvas.toDataURL("image/webp");
-    console.log(imageVariable);
-    // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    // const yolov5FetchedData = fetch(yolov5APIUrl, {data: imageVariable});
+    // only using the base64 encoded as param
+    let image64_encoded = imageVariable.split(',')[1]
+    // console.log(imageVariable);
+    data = {'image' : image64_encoded}
+    console.log(postData(yolov5APIUrl, data))
+    // console.log(yolov5FetchedData)
     // const yolov5Frame = yolov5FetchedData.getFrame();
     const yolov5Frame = imageVariable;
     // 4. Place camera output as a small box on the upper right corner

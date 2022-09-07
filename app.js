@@ -42,9 +42,11 @@ const navigateMenuToIndex = (index) => {
     if (index < navIndexLowerBound) index = navIndexLowerBound;
     if (index > navIndexUpperBound) index = navIndexUpperBound;
     navItems[index].style.color = 'yellow';
+    navItems[index].style.fontSize = '6rem';
 }
 const resetNavMenuItemStyle = (index) => {
     navItems[index].style.color = 'white';
+    navItems[index].style.fontSize = '5rem';
 }
 navigateMenuToIndex(0);
 
@@ -204,6 +206,19 @@ videoRecordButton.addEventListener("mouseover", hoverRecordBtn, false);
 videoRecordButton.addEventListener("mouseout", mouseOutRecordBtn, false);
 videoRecordButton.addEventListener("click", clickRecordBtn);
 
+// stats table creation
+// pass in tableHTMLElement = document.getElementById('stats-table');
+function createStatsTable(tableHTMLElement) {
+    const nameHeader = document.createElement("th");
+    const countHeader = document.createElement("th");
+    nameHeader.innerHTML = "Name";
+    countHeader.innerHTML = "Count";
+    tableHTMLElement.appendChild(nameHeader);
+    tableHTMLElement.appendChild(countHeader);
+
+}
+
+// Nav menu item navigation
 const navigateNavMenu = (indexDelta) => {
     resetNavMenuItemStyle(selectedItemIndex);
     selectedItemIndex = selectedItemIndex+indexDelta;
@@ -244,6 +259,9 @@ document.onkeyup = function(event) {
             case "Enter":
                 cameraTrigger.click();
                 break;
+            case " ":
+                toggleNav();
+                break;
             default:
                 return;
         }
@@ -253,6 +271,9 @@ document.onkeyup = function(event) {
         switch (key) {
             case "Enter":
                 videoRecordButton.click();
+                break;
+            case " ":
+                toggleNav();
                 break;
             default:
                 return;

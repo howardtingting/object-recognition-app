@@ -249,7 +249,6 @@ table {
     text-decoration: underline;
     text-decoration-thickness: 0.035em;
 }
-
 /* APP CONTAINER */
 
 #app-container {
@@ -321,12 +320,12 @@ table {
 }
 
 #camera--trigger {
-    position:relative;
+    position:absolute;
     padding: 20px 50px 0px 50px;
     background-color: rgba(79,79,79,0.7);
     border: 1px solid white;
     border-radius: 5%;
-    top:calc(50vh - 118px);
+    bottom:12px;
     left:22px;
     z-index:4;
 }

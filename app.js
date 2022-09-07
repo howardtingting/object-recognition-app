@@ -204,31 +204,30 @@ videoRecordButton.addEventListener("mouseover", hoverRecordBtn, false);
 videoRecordButton.addEventListener("mouseout", mouseOutRecordBtn, false);
 videoRecordButton.addEventListener("click", clickRecordBtn);
 
+const navigateNavMenu = (indexDelta) => {
+    resetNavMenuItemStyle(selectedItemIndex);
+    selectedItemIndex = selectedItemIndex+indexDelta;
+    if (selectedItemIndex < navIndexLowerBound) {
+        selectedItemIndex = navIndexUpperBound;
+    }
+    if (selectedItemIndex > navIndexUpperBound) {
+        selectedItemIndex = navIndexLowerBound;
+    }
+    navigateMenuToIndex(selectedItemIndex);
+}
 document.onkeyup = function(event) {
     const key = event.key;
     if (showNav === true) {
         // if nav bar open, capture all inputs for nav bar
         switch(key) {
-            case "ArrowUp":
-                resetNavMenuItemStyle(selectedItemIndex);
-                selectedItemIndex = Math.max(navIndexLowerBound, selectedItemIndex-1);
-                navigateMenuToIndex(selectedItemIndex);
-                break;
-            case "ArrowDown":
-                resetNavMenuItemStyle(selectedItemIndex);
-                selectedItemIndex = Math.min(navIndexUpperBound, selectedItemIndex+1);
-                navigateMenuToIndex(selectedItemIndex);
-                break;
             case "ArrowLeft":
-                resetNavMenuItemStyle(selectedItemIndex);
-                selectedItemIndex = Math.max(navIndexLowerBound, selectedItemIndex-1);
-                navigateMenuToIndex(selectedItemIndex);
-                break;
+            case "ArrowUp":
+                navigateNavMenu(-1);
+                break;            
             case "ArrowRight":
-                resetNavMenuItemStyle(selectedItemIndex);
-                selectedItemIndex = Math.min(navIndexUpperBound, selectedItemIndex+1);
-                navigateMenuToIndex(selectedItemIndex);
-                break;    
+            case "ArrowDown":
+                navigateNavMenu(1);
+                break;
             case "Enter":
                 toggleNav();
                 displayApp(appsAvailable[selectedItemIndex]);

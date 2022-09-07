@@ -245,7 +245,7 @@ table {
 #nav-items li {
     font-size: 5rem;
     color: white;
-    cursor:pointer;
+    cursor: pointer;
     text-decoration: underline;
     text-decoration-thickness: 0.035em;
 }

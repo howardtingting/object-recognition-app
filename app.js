@@ -30,9 +30,26 @@ const toggleNav = () => {
     displayApp(currentRunningApp);
 }
 
+// nav menu selection schema
+const appsAvailable = ['home', 'scanner', 'issue', 'counter'];
+const navItems = appsAvailable.map(navItem => {
+    return document.getElementById(`nav-${navItem}`);
+});
+let selectedItemIndex = 0,
+    navIndexLowerBound = 0,
+    navIndexUpperBound = navItems.length - 1;
+const navigateMenuToIndex = (index) => {
+    if (index < navIndexLowerBound) index = navIndexLowerBound;
+    if (index > navIndexUpperBound) index = navIndexUpperBound;
+    navItems[index].style.color = 'yellow';
+}
+const resetNavMenuItemStyle = (index) => {
+    navItems[index].style.color = 'white';
+}
+navigateMenuToIndex(0);
+
 // APPS SCHEMA
 var currentRunningApp = 'home';
-const appsAvailable = ['home', 'scanner', 'issue', 'counter'];
 
 const displayApp = function(appToRun='home') {
     //guarantee hide navigation and show app when displaying app
@@ -151,12 +168,46 @@ cameraTrigger.addEventListener("click", function() {
 });
 
 document.onkeyup = function(event) {
-    if (event.key === "Enter") {
+    const key = event.key;
+    if (showNav === true) {
+        // if nav bar open, capture all inputs for nav bar
+        switch(key) {
+            case "ArrowUp":
+                resetNavMenuItemStyle(selectedItemIndex);
+                selectedItemIndex = Math.max(navIndexLowerBound, selectedItemIndex-1);
+                navigateMenuToIndex(selectedItemIndex);
+                break;
+            case "ArrowDown":
+                resetNavMenuItemStyle(selectedItemIndex);
+                selectedItemIndex = Math.min(navIndexUpperBound, selectedItemIndex+1);
+                navigateMenuToIndex(selectedItemIndex);
+                break;
+            case "ArrowLeft":
+                resetNavMenuItemStyle(selectedItemIndex);
+                selectedItemIndex = Math.max(navIndexLowerBound, selectedItemIndex-1);
+                navigateMenuToIndex(selectedItemIndex);
+                break;
+            case "ArrowRight":
+                resetNavMenuItemStyle(selectedItemIndex);
+                selectedItemIndex = Math.min(navIndexUpperBound, selectedItemIndex+1);
+                navigateMenuToIndex(selectedItemIndex);
+                break;    
+            case "Enter":
+                toggleNav();
+                displayApp(appsAvailable[selectedItemIndex]);
+                break;
+            case " ":
+                toggleNav();
+            default:
+                break;
+        }
+        return;
+    }
+    if (key === "Enter") {
         if (currentRunningApp === 'scanner') {
             cameraTrigger.click();
         }
-    }
-    if (event.key === " ") {
+    } else if (key === " ") {
         //space key is menu
         toggleNav();
     }

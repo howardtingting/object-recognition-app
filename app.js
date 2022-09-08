@@ -56,6 +56,9 @@ var currentRunningApp = 'home';
 const displayApp = function(appToRun='home') {
     //guarantee hide navigation and show app when displaying app
     //show app
+    if (appToRun !== 'scanner') {
+        cameraOutput.classList.add('hidden');
+    }
     if (appToRun === 'home') {
         appContainer.style.display = "none";
     } else {

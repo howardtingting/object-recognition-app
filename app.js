@@ -154,7 +154,7 @@ cameraTrigger.addEventListener("click", function() {
     const yolov5Data = getYoloV5Data(data);
     const yolov5Frame = yolov5Data['image-64'];
     // 4. Place camera output as a small box on the upper right corner
-    cameraOutput.src = imageVariable;
+    cameraOutput.src = yolov5Frame;
     cameraOutput.classList.add("taken");
     // 5. get image the name of item recognized and display
     // it to the user; follow figma design.
@@ -201,14 +201,39 @@ videoRecordButton.addEventListener("click", clickRecordBtn);
 
 // stats table creation
 // pass in tableHTMLElement = document.getElementById('stats-table');
-function createStatsTable(tableHTMLElement) {
-    const nameHeader = document.createElement("th");
-    const countHeader = document.createElement("th");
-    nameHeader.innerHTML = "Name";
-    countHeader.innerHTML = "Count";
-    tableHTMLElement.appendChild(nameHeader);
-    tableHTMLElement.appendChild(countHeader);
-
+function addHeaderToTable(tableHTMLElement, headerTitle) {
+    const th = document.createElement('th');
+    th.textContent = headerTitle;
+    tableHTMLElement.appendChild(th);
+}
+function addRowToTable(statsRowsContainer, name, count) {
+    const tr = document.createElement('tr');
+    const tdName = document.createElement('td');
+    const tdCount = document.createElement('td');
+    tdName.textContent = name;
+    tdCount.textContent = count;
+    [tdName, tdCount].forEach(td => {
+        td.classList.add('stats-table-text');
+    });
+}
+function createYoloStatsTable(yolov5Data) {
+    const tableHTMLElement = document.createElement("table");
+    addHeaderToTable(tableHTMLElement, "Name");
+    addHeaderToTable(tableHTMLElement, "Count");
+    const statsRowsContainer = document.createElement("div");
+    div.classList.add("stats-table-row-container");
+    const keyList = Object.keys(yolov5Data["name"]);
+    const dictOfItems = {}
+    keyList.forEach(key => {
+        const itemName = yolov5Data["name"][key];
+        if (!(itemName in dictOfItems)) {
+            dictOfItems[itemName] = 0;
+        }
+        dictOfItems[itemName] += 1;
+    });
+    for (itemName in dictOfItems) {
+        addRowToTable(statsRowsContainer, itemName, dictOfItems[itemName]);
+    }
 }
 
 // Nav menu item navigation

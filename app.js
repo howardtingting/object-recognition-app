@@ -130,7 +130,7 @@ cameraOutput.ontransitionstart = () => {
     cameraSnapshot.innerHTML="";
 };
 
-cameraTrigger.addEventListener("click", function() {
+cameraTrigger.addEventListener("click", async function() {
     cameraOutput.classList.remove("hidden");
     cameraOutput.classList.remove("taken");
     cameraSnapshot.innerHTML="";
@@ -151,7 +151,7 @@ cameraTrigger.addEventListener("click", function() {
     // console.log(imageVariable);
     const data = {'image' : image64_encoded}
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    const yolov5Data = getYoloV5Data(data);
+    const yolov5Data = await getYoloV5Data(data);
     const yolov5Frame = yolov5Data['image-64'];
     // 4. Place camera output as a small box on the upper right corner
     cameraOutput.src = yolov5Frame;
@@ -215,6 +215,9 @@ function addRowToTable(statsRowsContainer, name, count) {
     [tdName, tdCount].forEach(td => {
         td.classList.add('stats-table-text');
     });
+    tr.appendChild(tdName);
+    tr.appendChild(tdCount);
+    statsRowsContainer.appendChild(tr);
 }
 function createYoloStatsTable(yolov5Data) {
     const tableHTMLElement = document.createElement("table");

@@ -14,6 +14,6 @@ async function postData(url, data) {
 }
 
 export async function getYoloV5Data(data) {
-    const yolov5APIUrl = "https//localhost:5000/postData";
+    const yolov5APIUrl = "http://127.0.0.1:5000/postfile";
     return postData(yolov5APIUrl, data);
 }

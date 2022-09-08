@@ -1,10 +1,10 @@
+import {getYoloV5Data} from './API.js';
 // nav & app HTML elements
 const navContainer = document.querySelector("#nav-container"),
       navOpen = document.querySelector("#nav-open"),
       appContainer = document.querySelector("#app-container");
 
 // NAVIGATION SCHEMA
-
 const toggleNavOpen = (show=true) => {
     if (!show) {
         navOpen.style.top = "-100vh";
@@ -90,7 +90,7 @@ const displayApp = function(appToRun='home') {
 navContainer.addEventListener("click", toggleNav);
 
 appsAvailable.forEach((navItem) => {
-    navItemHtmlObject = document.querySelector(`#nav-${navItem}`);
+    const navItemHtmlObject = document.querySelector(`#nav-${navItem}`);
     navItemHtmlObject.addEventListener("click", function(e) {
         toggleNav();
         displayApp(navItem);
@@ -115,7 +115,7 @@ function cameraStart() {
     navigator.mediaDevices
         .getUserMedia(constraints)
         .then(function(stream) {
-            track = stream.getTracks()[0];
+            const track = stream.getTracks()[0];
             cameraView.srcObject = stream; //<video> html obj w/srcObject attribute
         })
         .catch(function(error) {
@@ -126,17 +126,6 @@ function cameraStart() {
 cameraOutput.ontransitionstart = () => {
     cameraSnapshot.innerHTML="";
 };
-
-const getImageCounts = (yolov5FetchedData) => {
-    // pretend this returns dict s.t. {key = item_name, value=count}
-    return yolov5FetchedData.getImageCounts(); 
-}
-
-const getItemName = (yolov5FetchedData) => {
-    // returns the name of the first item on list recognized 
-    // returns string
-    return yolov5FetchedData.getItemName();
-}
 
 cameraTrigger.addEventListener("click", function() {
     cameraOutput.classList.remove("hidden");
@@ -155,13 +144,14 @@ cameraTrigger.addEventListener("click", function() {
     sensorCanvas.getContext("2d").drawImage(cameraView, 0, 0);
     // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
     const imageVariable = sensorCanvas.toDataURL("image/webp");
-    console.log(imageVariable);
+    let image64_encoded = imageVariable.split(',')[1];
+    // console.log(imageVariable);
+    const data = {'image' : image64_encoded}
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    // const yolov5FetchedData = fetch(yolov5APIUrl, {data: imageVariable});
-    // const yolov5Frame = yolov5FetchedData.getFrame();
-    const yolov5Frame = imageVariable;
+    const yolov5Data = getYoloV5Data(data);
+    const yolov5Frame = yolov5Data['image-64'];
     // 4. Place camera output as a small box on the upper right corner
-    cameraOutput.src = yolov5Frame;
+    cameraOutput.src = imageVariable;
     cameraOutput.classList.add("taken");
     // 5. get image the name of item recognized and display
     // it to the user; follow figma design.

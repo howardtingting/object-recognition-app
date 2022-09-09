@@ -207,10 +207,15 @@ videoRecordButton.addEventListener("click", clickRecordBtn);
 
 // stats table creation
 // pass in tableHTMLElement = document.getElementById('stats-table');
-function addHeaderToTable(tableHeaderRow, headerTitle) {
+function addHeaderToTable(tableHeaderRow, headerTitle, textAlign="end") {
     const th = document.createElement('th');
+    th.style.fontSize = '24px';
+    th.style.paddingRight = '10px';
+    th.style.paddingLeft = '10px';
+    th.style.textAlign = textAlign;
     th.textContent = headerTitle;
     th.classList.add('stats-table-text', 'stats-table-header');
+    
     tableHeaderRow.appendChild(th);
 }
 function addRowToTable(tableHTMLElement, name, count) {
@@ -238,7 +243,7 @@ function createYoloStatsTable(yolov5Data) {
     tableHTMLElement.style.width = '100%';
     const tableHeaderRow = document.createElement("tr");
     addHeaderToTable(tableHeaderRow, "Name");
-    addHeaderToTable(tableHeaderRow, "Count");
+    addHeaderToTable(tableHeaderRow, "Count", "start");
     tableHTMLElement.appendChild(tableHeaderRow);
     const keyList = Object.keys(yolov5Data["name"]);
     const dictOfItems = {}

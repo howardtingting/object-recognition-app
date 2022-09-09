@@ -283,9 +283,9 @@ table {
 
 .right-app-menu {
     position: absolute;
-    width:300px;
+    width:calc(100% - 70px);
     height:100vh;
-    background-color: rgba(79,79,79,0.7);
+    background-color: rgba(0,0,0,0.8);
     top: 0;
     right: 0;
 }
@@ -326,7 +326,8 @@ table {
     border: 1px solid white;
     border-radius: 5%;
     bottom:12px;
-    left:22px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index:4;
 }
 
@@ -340,7 +341,7 @@ table {
     opacity: 1;
 }
 #camera--output {
-    z-index:4;
+    z-index:1;
 }
 
 #camera--trigger p {
@@ -349,12 +350,9 @@ table {
 }
 
 .taken {
-    height: 100px!important;
-    width: 100px!important;
+    /* height: 100px!important;
+    width: 100px!important; */
     transition: all 0.5s ease-in;
-    border: solid 3px white;
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
-    top:20px;
-    right:320px;
-    z-index:2;
+    z-index: 1;
 }

@@ -148,7 +148,6 @@ cameraTrigger.addEventListener("click", async function() {
     // 3.0. get imageVariable (toDataURL gets png, but can convert png to string image)
     const imageVariable = sensorCanvas.toDataURL("image/webp");
     let image64_encoded = imageVariable.split(',')[1];
-    // console.log(imageVariable);
     const data = {'image' : image64_encoded}
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
     // const yolov5Data = await getYoloV5Data(data);
@@ -218,7 +217,14 @@ function addRowToTable(tableHTMLElement, name, count) {
     const tr = document.createElement('tr');
     const tdName = document.createElement('td');
     const tdCount = document.createElement('td');
-    tdName.textContent = name;
+    tdName.style.fontSize = '24px';
+    tdCount.style.fontSize = '24px';
+    tdName.style.paddingRight = '10px';
+    tdCount.style.paddingRight = '10px';
+    tdName.style.paddingLeft = '10px';
+    tdCount.style.paddingLeft = '10px';
+    tdName.textContent = name.toUpperCase();
+    tdName.style.textAlign = 'end';
     tdCount.textContent = count;
     [tdName, tdCount].forEach(td => {
         td.classList.add('stats-table-text');
@@ -229,6 +235,7 @@ function addRowToTable(tableHTMLElement, name, count) {
 }
 function createYoloStatsTable(yolov5Data) {
     const tableHTMLElement = document.createElement("table");
+    tableHTMLElement.style.width = '100%';
     const tableHeaderRow = document.createElement("tr");
     addHeaderToTable(tableHeaderRow, "Name");
     addHeaderToTable(tableHeaderRow, "Count");
@@ -245,8 +252,6 @@ function createYoloStatsTable(yolov5Data) {
     const dictKeys = Object.keys(dictOfItems);
     for (let idx in Object.keys(dictOfItems)) {
         const itemName = dictKeys[idx];
-        console.log(itemName);
-        console.log(dictOfItems[itemName]);
         addRowToTable(tableHTMLElement, itemName, dictOfItems[itemName]);
     }
     return tableHTMLElement;

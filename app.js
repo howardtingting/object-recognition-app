@@ -1,4 +1,4 @@
-import {getYoloV5Data} from './API.js';
+import {getYoloV5Data, readTextFile} from './API.js';
 // nav & app HTML elements
 const navContainer = document.querySelector("#nav-container"),
       navOpen = document.querySelector("#nav-open"),
@@ -151,11 +151,15 @@ cameraTrigger.addEventListener("click", async function() {
     // console.log(imageVariable);
     const data = {'image' : image64_encoded}
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    const yolov5Data = await getYoloV5Data(data);
-    const yolov5Frame = yolov5Data['image-64'];
-    // 4. Place camera output as a small box on the upper right corner
-    cameraOutput.src = yolov5Frame;
-    cameraOutput.classList.add("taken");
+    // const yolov5Data = await getYoloV5Data(data);
+    let yolov5Data = {"image-64": "", "name": {}};
+    let yolov5Frame = "";
+    readTextFile("./sample.json", function(text){
+        var data = JSON.parse(text);
+        yolov5Frame = data['image-64'];
+        cameraOutput.src = `data:image/png;base64,${yolov5Frame}`;
+        cameraOutput.classList.add("taken");
+    });
     // 5. get image the name of item recognized and display
     // it to the user; follow figma design.
     // const itemFound = getItemName(yolov5FetchedData);

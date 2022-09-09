@@ -2,8 +2,8 @@ import {getYoloV5Data, readTextFile} from './API.js';
 // nav & app HTML elements
 const navContainer = document.querySelector("#nav-container"),
       navOpen = document.querySelector("#nav-open"),
-      appContainer = document.querySelector("#app-container");
-
+      appContainer = document.querySelector("#app-container"),
+      scanTableContainer = document.querySelector("#scanner-table-container");
 // NAVIGATION SCHEMA
 const toggleNavOpen = (show=true) => {
     if (!show) {
@@ -154,11 +154,14 @@ cameraTrigger.addEventListener("click", async function() {
     // const yolov5Data = await getYoloV5Data(data);
     let yolov5Data = {"image-64": "", "name": {}};
     let yolov5Frame = "";
-    readTextFile("./sample.json", function(text){
+    readTextFile("./sample.json", function(text) {
         var data = JSON.parse(text);
         yolov5Frame = data['image-64'];
         cameraOutput.src = `data:image/png;base64,${yolov5Frame}`;
         cameraOutput.classList.add("taken");
+        const tableHTMLElement = createYoloStatsTable(data);
+        scanTableContainer.innerHTML = "";
+        scanTableContainer.appendChild(tableHTMLElement);
     });
     // 5. get image the name of item recognized and display
     // it to the user; follow figma design.
@@ -228,7 +231,7 @@ function createYoloStatsTable(yolov5Data) {
     addHeaderToTable(tableHTMLElement, "Name");
     addHeaderToTable(tableHTMLElement, "Count");
     const statsRowsContainer = document.createElement("div");
-    div.classList.add("stats-table-row-container");
+    statsRowsContainer.classList.add("stats-table-row-container");
     const keyList = Object.keys(yolov5Data["name"]);
     const dictOfItems = {}
     keyList.forEach(key => {
@@ -238,9 +241,15 @@ function createYoloStatsTable(yolov5Data) {
         }
         dictOfItems[itemName] += 1;
     });
-    for (itemName in dictOfItems) {
+    const dictKeys = Object.keys(dictOfItems);
+    for (let idx in Object.keys(dictOfItems)) {
+        const itemName = dictKeys[idx];
+        console.log(itemName);
+        console.log(dictOfItems[itemName]);
         addRowToTable(statsRowsContainer, itemName, dictOfItems[itemName]);
     }
+    tableHTMLElement.appendChild(statsRowsContainer);
+    return tableHTMLElement;
 }
 
 // Nav menu item navigation

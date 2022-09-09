@@ -208,12 +208,13 @@ videoRecordButton.addEventListener("click", clickRecordBtn);
 
 // stats table creation
 // pass in tableHTMLElement = document.getElementById('stats-table');
-function addHeaderToTable(tableHTMLElement, headerTitle) {
+function addHeaderToTable(tableHeaderRow, headerTitle) {
     const th = document.createElement('th');
     th.textContent = headerTitle;
-    tableHTMLElement.appendChild(th);
+    th.classList.add('stats-table-text', 'stats-table-header');
+    tableHeaderRow.appendChild(th);
 }
-function addRowToTable(statsRowsContainer, name, count) {
+function addRowToTable(tableHTMLElement, name, count) {
     const tr = document.createElement('tr');
     const tdName = document.createElement('td');
     const tdCount = document.createElement('td');
@@ -224,14 +225,14 @@ function addRowToTable(statsRowsContainer, name, count) {
     });
     tr.appendChild(tdName);
     tr.appendChild(tdCount);
-    statsRowsContainer.appendChild(tr);
+    tableHTMLElement.appendChild(tr);
 }
 function createYoloStatsTable(yolov5Data) {
     const tableHTMLElement = document.createElement("table");
-    addHeaderToTable(tableHTMLElement, "Name");
-    addHeaderToTable(tableHTMLElement, "Count");
-    const statsRowsContainer = document.createElement("div");
-    statsRowsContainer.classList.add("stats-table-row-container");
+    const tableHeaderRow = document.createElement("tr");
+    addHeaderToTable(tableHeaderRow, "Name");
+    addHeaderToTable(tableHeaderRow, "Count");
+    tableHTMLElement.appendChild(tableHeaderRow);
     const keyList = Object.keys(yolov5Data["name"]);
     const dictOfItems = {}
     keyList.forEach(key => {
@@ -246,9 +247,8 @@ function createYoloStatsTable(yolov5Data) {
         const itemName = dictKeys[idx];
         console.log(itemName);
         console.log(dictOfItems[itemName]);
-        addRowToTable(statsRowsContainer, itemName, dictOfItems[itemName]);
+        addRowToTable(tableHTMLElement, itemName, dictOfItems[itemName]);
     }
-    tableHTMLElement.appendChild(statsRowsContainer);
     return tableHTMLElement;
 }
 

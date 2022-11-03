@@ -153,7 +153,7 @@ cameraTrigger.addEventListener("click", async function() {
     const yolov5Data = await getYoloV5Data(data);
     const yolov5ImageText = yolov5Data['image-64'];
     // let yolov5Data = {"image-64": "", "name": {}};
-    cameraOutput.src = `data:image/png;base64,${yolov5ImageText}`;
+    // cameraOutput.src = `data:image/png;base64,${yolov5ImageText}`;
     cameraOutput.classList.add("taken");
     const tableHTMLElement = createYoloStatsTable(yolov5Data);
     scanTableContainer.innerHTML = "";

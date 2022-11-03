@@ -150,18 +150,14 @@ cameraTrigger.addEventListener("click", async function() {
     let image64_encoded = imageVariable.split(',')[1];
     const data = {'image' : image64_encoded}
     // 3.1. pass imageVariable to yolov5 and retrieve yolov5 as image
-    // const yolov5Data = await getYoloV5Data(data);
-    let yolov5Data = {"image-64": "", "name": {}};
-    let yolov5Frame = "";
-    readTextFile("./sample.json", function(text) {
-        var data = JSON.parse(text);
-        yolov5Frame = data['image-64'];
-        cameraOutput.src = `data:image/png;base64,${yolov5Frame}`;
-        cameraOutput.classList.add("taken");
-        const tableHTMLElement = createYoloStatsTable(data);
-        scanTableContainer.innerHTML = "";
-        scanTableContainer.appendChild(tableHTMLElement);
-    });
+    const yolov5Data = await getYoloV5Data(data);
+    const yolov5ImageText = yolov5Data['image-64'];
+    // let yolov5Data = {"image-64": "", "name": {}};
+    cameraOutput.src = `data:image/png;base64,${yolov5ImageText}`;
+    cameraOutput.classList.add("taken");
+    const tableHTMLElement = createYoloStatsTable(yolov5Data);
+    scanTableContainer.innerHTML = "";
+    scanTableContainer.appendChild(tableHTMLElement);
     // 5. get image the name of item recognized and display
     // it to the user; follow figma design.
     // const itemFound = getItemName(yolov5FetchedData);
@@ -239,6 +235,10 @@ function addRowToTable(tableHTMLElement, name, count) {
     tableHTMLElement.appendChild(tr);
 }
 function createYoloStatsTable(yolov5Data) {
+    if (yolov5Data == null) {
+        console.log('null yolov5Data');
+        return;
+    }
     const tableHTMLElement = document.createElement("table");
     tableHTMLElement.style.width = '100%';
     const tableHeaderRow = document.createElement("tr");
